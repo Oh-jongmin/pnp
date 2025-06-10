@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: 560971842042.dkr.ecr.ap-northeast-2.amazonaws.com/pnp-ecr:app-final
+          env:
+          - name: DB_URL
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: db-url
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: db-username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: db-password
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+          volumeMounts:
+            - name: app-config-volume
+              mountPath: /app/resources/spring/data-access.properties
+              subPath: data-access.properties
+      volumes:
+        - name: app-config-volume
+          configMap:
+            name: app-config

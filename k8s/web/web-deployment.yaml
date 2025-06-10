@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  labels:
+    app: web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: pnp-web
+          image: 560971842042.dkr.ecr.ap-northeast-2.amazonaws.com/pnp-ecr:web-final
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          volumeMounts:
+            - name: web-config-volume
+              mountPath: /etc/apache2/sites-available/000-default.conf
+              subPath: 000-default.conf
+      volumes:
+        - name: web-config-volume
+          configMap:
+            name: web-config
