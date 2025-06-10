@@ -53,4 +53,3 @@ jobs:
         kubectl apply -f k8s/web/
         kubectl apply -f k8s/app/
         kubectl apply -f k8s/hpa/
-
