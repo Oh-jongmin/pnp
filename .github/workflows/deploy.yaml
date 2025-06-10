@@ -46,10 +46,7 @@ jobs:
 
     - name: Update kubeconfig
       run: |
-        aws eks update-kubeconfig \ 
-          --region ap-northeast-2 \
-          --name pnp-cluster \
-          --role-arn arn:aws:iam::560971842042:role/GitHubActionsRole 
+        aws eks update-kubeconfig --region ap-northeast-2 --name pnp-cluster --role-arn arn:aws:iam::560971842042:role/GitHubActionsRole
         
     - name: Deploy to EKS
       run: |
