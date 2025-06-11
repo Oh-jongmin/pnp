@@ -1,4 +1,4 @@
-name: Terraform Deploy #Terraform
+name: Terraform Deploy
 
 on:
   push:
@@ -37,29 +37,7 @@ jobs:
     - name: Terraform Apply
       id: tf-apply
       continue-on-error: true
-      run: |
-        set -e
-
-      echo "Running Terraform apply with logging..."
-      if ! terraform apply -auto-approve -var-file="terraform.tfvars" 2>&1 | tee apply.log; then
-        echo "Terraform apply failed. Attempting to detect lock..."
-        LOCK_ID=$(grep -A5 "Lock Info:" apply.log | grep ID | awk '{print $2}')
-        echo "LOCK ID: $LOCK_ID"
-
-      if [ ! -z "$LOCK_ID" ]; then
-        echo "Forcing unlock with ID: $LOCK_ID"
-        terraform force-unlock -force "$LOCK_ID"
-        echo "Re-running terraform apply..."
-        terraform apply -auto-approve -var-file="terraform.tfvars"
-      else
-        echo "No LOCK ID found. Cannot unlock."
-        exit 1
-      fi
-    fi
-
-    - name: Retry Terraform Apply (final)
-      if: steps.tf-apply.outputs.exit_code != '0'
-      run: terraform apply --auto-approve -var-file="terraform.tfvars"
+      run: terrform apply --auto-approve -lock=false
 
     - name: Upload tfstate artifact
       uses: actions/upload-artifact@v4
