@@ -11,6 +11,9 @@ module "eks" {
   vpc_id     = aws_vpc.pnp.id
   subnet_ids = [aws_subnet.private-ng[0].id, aws_subnet.private-ng[1].id]
 
+  cluster_security_group_id = aws_security_group.cluster-sg.id
+  node_security_group_id    = aws_security_group.ng-sg.id
+
   eks_managed_node_groups = {
     ng-a = {
       name           = "ng-a"
