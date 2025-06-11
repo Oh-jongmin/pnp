@@ -37,7 +37,7 @@ jobs:
     - name: Terraform Apply
       id: tf-apply
       continue-on-error: true
-      run: terrform apply --auto-approve -lock=false
+      run: terraform apply --auto-approve -lock=false
 
     - name: Upload tfstate artifact
       uses: actions/upload-artifact@v4
