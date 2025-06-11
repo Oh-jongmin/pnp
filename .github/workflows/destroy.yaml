@@ -1,7 +1,7 @@
 name: Terraform Destroy
 
 on:
-  workflow_dispatch:  # 👉 수동 실행용 트리거
+  workflow_dispatch:  # 👉 이게 있어야 수동 실행 버튼 생김
 
 jobs:
   destroy:
