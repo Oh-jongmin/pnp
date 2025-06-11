@@ -46,6 +46,37 @@ resource "aws_security_group" "mgmt-sg" {
   }
 }
 
+resource "aws_security_group" "cluster-sg" {
+  name        = "cluster-sg"
+  description = "EKS cluster SG"
+  vpc_id      = aws_vpc.pnp.id
+
+  ingress {
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ng-sg.id]
+  }
+
+  ingress {
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
+    security_groups = [aws_security_group.mgmt-sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "cluster-sg"
+  }
+}
+
 resource "aws_security_group" "ng-sg" {
   name        = "ng-sg"
   description = "EKS NodeGroup SG"

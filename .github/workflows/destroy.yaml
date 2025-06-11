@@ -6,9 +6,7 @@ on:
 jobs:
   destroy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: terraform  # 👉 terraform 코드가 있는 폴더 경로
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
