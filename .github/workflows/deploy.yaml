@@ -8,7 +8,7 @@ on:
       - 'k8s/web/**'
       - 'k8s/app/**'
       - 'k8s/hpa/**'
-      - '.github/workflows/deploy.yaml'
+      - '.github/workflows/deploy.yaml' # deploy
 
 jobs:
   deploy:
