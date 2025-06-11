@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'k8s/**'
-      - '.github.workflows/deploy.yaml'
+      - '.github/workflows/deploy.yaml'
 
 jobs:
   deploy:
