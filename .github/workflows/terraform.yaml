@@ -6,11 +6,11 @@ on:
       - main
     paths:
       - 'terraform/**'
+      - 'github/workflows/terraform.yaml'
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: terraform
@@ -40,3 +40,8 @@ jobs:
     - name: Terraform Apply
       run: terraform apply --auto-approve -var-file="terraform.tfvars"
 
+    - name: Upload tfstate artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: terraform-tfstate-backup
+        path: terraform/.terraform/terraform.tfstate
