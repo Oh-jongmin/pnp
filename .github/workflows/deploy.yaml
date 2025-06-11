@@ -57,7 +57,7 @@ jobs:
 
     - name: Update kubeconfig
       run: |
-        aws eks update-kubeconfig --region ap-northeast-2 --name pnp-cluster --alias github-actions
+        aws eks update-kubeconfig --region ap-northeast-2 --name pnp-cluster
         
     - name: Deploy to EKS
       run: |

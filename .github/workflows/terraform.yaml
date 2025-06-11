@@ -41,7 +41,7 @@ jobs:
       run: terraform apply --auto-approve -var-file="terraform.tfvars"
 
     - name: Upload tfstate artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: terraform-tfstate-backup
         path: terraform/.terraform/terraform.tfstate
