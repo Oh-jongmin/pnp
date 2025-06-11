@@ -5,8 +5,9 @@ on:
     branches:
       - main
     paths:
-      - 'k8s/**'
-      - '.github/workflows/deploy.yaml'
+      - 'k8s/web'
+      - 'k8s/app'
+      - 'k8s/hpa'
 
 jobs:
   deploy:
